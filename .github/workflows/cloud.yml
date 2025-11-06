@@ -1,0 +1,14 @@
+name: Cloud50
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # 10분마다 실행
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run cloud50.py
+        run: python3 cloud50.py
