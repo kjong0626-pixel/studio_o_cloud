@@ -1,0 +1,28 @@
+name: Cloud50
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/10 * * * *"   # 10분마다 자동 실행
+
+jobs:
+  auto-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Run cloud script forever
+        run: |
+          echo "🚀 Cloud50 시작됨..."
+          while true; do
+            python3 cloud50.py
+            echo "⏳ 10분 대기 후 재시작"
+            sleep 600
+          done
