@@ -1,0 +1,31 @@
+name: Studio_O Auto Runner
+
+on:
+  schedule:
+    - cron: "0 * * * *"   # 매시간 정각마다 실행
+  workflow_dispatch:       # 수동 실행도 가능
+
+jobs:
+  auto_task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests
+
+      - name: Run Studio_O automation
+        run: |
+          echo "🚀 Studio_O 자동화 시작"
+          python your_script.py   # 👉 여기 네가 자동 실행시키고 싶은 파이썬 파일 이름
+
+      - name: Done
+        run: echo "✅ Studio_O 자동화 완료"
