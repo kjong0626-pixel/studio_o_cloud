@@ -1,0 +1,28 @@
+name: ORIQ Auto Run
+
+on:
+  schedule:
+    - cron: "0 * * * *"  # 매 정각마다 자동 실행 (UTC 기준)
+  workflow_dispatch:     # 수동 실행 버튼도 허용
+
+jobs:
+  run-oriq:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt || echo "No requirements.txt found"
+
+      - name: Run ORIQ automation
+        run: |
+          echo "🚀 Starting ORIQ automation..."
+          python oriq.py
