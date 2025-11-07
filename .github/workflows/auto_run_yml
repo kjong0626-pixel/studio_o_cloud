@@ -1,0 +1,29 @@
+name: Auto Run Cloud System
+
+on:
+  schedule:
+    - cron: "0 * * * *"  # 매 시간마다 자동 실행
+  workflow_dispatch:  # 수동 실행도 가능
+
+jobs:
+  auto-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt || echo "No requirements.txt found"
+
+      - name: Run Automation Script
+        run: |
+          echo "🔁 Running auto process..."
+          python main.py || echo "⚠️ main.py not found"
